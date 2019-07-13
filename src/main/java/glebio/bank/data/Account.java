@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 
 /**
  * @author Gleb Danichev
@@ -23,6 +24,7 @@ public class Account {
     }
 
     public void setCents(long cents) {
+        Preconditions.checkArgument(cents >= 0);
         this.cents = cents;
     }
 

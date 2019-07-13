@@ -1,5 +1,6 @@
 package glebio.bank.api;
 
+import glebio.bank.data.Account;
 import glebio.bank.data.Db;
 import glebio.bank.data.Transfer;
 
@@ -9,6 +10,9 @@ import glebio.bank.data.Transfer;
 public class TransferController {
 
     public void transfer(Transfer transfer) {
-        Db.getInstance().getAccount(transfer.getFromAccountId());
+        Account from = Db.getInstance().getAccount(transfer.getFromAccountId()).orElseThrow();
+        Account to = Db.getInstance().getAccount(transfer.getToAccountId()).orElseThrow();
+        from.setCents(from.getCents() - transfer.getCents());
+        to.setCents(to.getCents() + transfer.getCents());
     }
 }
