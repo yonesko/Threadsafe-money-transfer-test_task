@@ -1,6 +1,7 @@
 package glebio.bank.data;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,5 +23,9 @@ public class Db {
 
     public void addAccount(Account account) {
         accounts.putIfAbsent(account.getId(), account);
+    }
+
+    public Optional<Account> getAccount(UUID accountId) {
+        return Optional.ofNullable(accounts.get(accountId));
     }
 }
