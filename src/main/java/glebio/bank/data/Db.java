@@ -1,5 +1,8 @@
 package glebio.bank.data;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,6 +17,8 @@ public class Db {
 
     private final Map<UUID, Account> accounts = new ConcurrentHashMap<>();
 
+    private final List<Transfer> transfers = Collections.synchronizedList(new LinkedList<>());
+
     public static Db getInstance() {
         return ourInstance;
     }
@@ -27,5 +32,9 @@ public class Db {
 
     public Optional<Account> getAccount(UUID accountId) {
         return Optional.ofNullable(accounts.get(accountId));
+    }
+
+    public void addTransfer(Transfer transfer) {
+        transfers.add(transfer);
     }
 }
