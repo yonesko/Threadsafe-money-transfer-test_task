@@ -19,4 +19,8 @@ public class Db {
 
     private Db() {
     }
+
+    public void addAccount(Account account) {
+        accounts.putIfAbsent(account.getId(), account);
+    }
 }
