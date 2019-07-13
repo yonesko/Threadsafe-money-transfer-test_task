@@ -16,15 +16,15 @@ public class Transfer {
 
     private final Instant created = Instant.now();
 
-    private final UUID fromAccount;
+    private final UUID fromAccountId;
 
-    private final UUID toAccount;
+    private final UUID toAccountId;
 
     private final long cents;
 
-    public Transfer(UUID fromAccount, UUID toAccount, long cents) {
-        this.fromAccount = fromAccount;
-        this.toAccount = toAccount;
+    public Transfer(UUID fromAccountId, UUID toAccountId, long cents) {
+        this.fromAccountId = fromAccountId;
+        this.toAccountId = toAccountId;
         this.cents = cents;
     }
 
@@ -36,12 +36,12 @@ public class Transfer {
         return created;
     }
 
-    public UUID getFromAccount() {
-        return fromAccount;
+    public UUID getFromAccountId() {
+        return fromAccountId;
     }
 
-    public UUID getToAccount() {
-        return toAccount;
+    public UUID getToAccountId() {
+        return toAccountId;
     }
 
     public long getCents() {
@@ -56,13 +56,13 @@ public class Transfer {
         return cents == transfer.cents &&
                Objects.equal(uuid, transfer.uuid) &&
                Objects.equal(created, transfer.created) &&
-               Objects.equal(fromAccount, transfer.fromAccount) &&
-               Objects.equal(toAccount, transfer.toAccount);
+               Objects.equal(fromAccountId, transfer.fromAccountId) &&
+               Objects.equal(toAccountId, transfer.toAccountId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(uuid, created, fromAccount, toAccount, cents);
+        return Objects.hashCode(uuid, created, fromAccountId, toAccountId, cents);
     }
 
     @Override
@@ -70,8 +70,8 @@ public class Transfer {
         return MoreObjects.toStringHelper(this)
             .add("uuid", uuid)
             .add("created", created)
-            .add("fromAccount", fromAccount)
-            .add("toAccount", toAccount)
+            .add("fromAccountId", fromAccountId)
+            .add("toAccountId", toAccountId)
             .add("cents", cents)
             .toString();
     }

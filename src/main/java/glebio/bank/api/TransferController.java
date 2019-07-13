@@ -8,7 +8,7 @@ import glebio.bank.data.Transfer;
  */
 public class TransferController {
 
-    public void addTransfer(Transfer transfer) {
-        Db.getInstance().addTransfer(transfer);
+    public void transfer(Transfer transfer) {
+        Db.getInstance().getAccount(transfer.getFromAccountId());
     }
 }
