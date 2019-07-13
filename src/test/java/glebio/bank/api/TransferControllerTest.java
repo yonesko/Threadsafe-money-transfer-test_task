@@ -29,10 +29,6 @@ public class TransferControllerTest {
 
         accountController.replenish(a.getId(), 500_000);
 
-
-        System.out.println(a);
-        System.out.println(b);
-
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Future<?>> futures = new LinkedList<>();
         for (int i = 0; i < 500_000; i++) {
@@ -46,5 +42,10 @@ public class TransferControllerTest {
 
         Assert.assertEquals(a.getCents(), 0);
         Assert.assertEquals(b.getCents(), 500_000);
+    }
+
+    @Test
+    public void deadLockTest() {
+
     }
 }

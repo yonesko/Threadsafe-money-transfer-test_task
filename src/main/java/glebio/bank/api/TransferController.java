@@ -12,7 +12,11 @@ public class TransferController {
     synchronized public void transfer(Transfer transfer) {
         Account from = Db.getInstance().getAccount(transfer.getFromAccountId()).orElseThrow();
         Account to = Db.getInstance().getAccount(transfer.getToAccountId()).orElseThrow();
-        from.setCents(from.getCents() - transfer.getCents());
-        to.setCents(to.getCents() + transfer.getCents());
+        synchronized (from) {
+            synchronized (to) {
+                from.setCents(from.getCents() - transfer.getCents());
+                to.setCents(to.getCents() + transfer.getCents());
+            }
+        }
     }
 }
