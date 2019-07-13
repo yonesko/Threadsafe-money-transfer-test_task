@@ -19,7 +19,7 @@ import org.junit.Test;
 public class TransferControllerTest {
 
     @Test
-    public void transferTest() throws InterruptedException, ExecutionException {
+    public void raceConditionTest() throws InterruptedException, ExecutionException {
         TransferController transferController = new TransferController();
         AccountController accountController = new AccountController();
         Account a = new Account();
