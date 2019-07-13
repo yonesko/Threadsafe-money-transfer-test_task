@@ -20,4 +20,9 @@ public class AccountController {
     public Account getAccount(UUID accountId) {
         return Db.getInstance().getAccount(accountId).orElseThrow();
     }
+
+    public void replenish(UUID accountId, long cents) {
+        Db.getInstance().getAccount(accountId).orElseThrow()
+            .addCents(cents);
+    }
 }

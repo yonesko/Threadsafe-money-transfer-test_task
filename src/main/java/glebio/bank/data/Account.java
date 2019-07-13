@@ -23,8 +23,12 @@ public class Account {
         return cents;
     }
 
+    public void addCents(long cents) {
+        setCents(this.cents + cents);
+    }
+
     public void setCents(long cents) {
-        Preconditions.checkArgument(cents >= 0);
+        Preconditions.checkArgument(cents >= 0, "negative sum %s", cents);
         this.cents = cents;
     }
 
