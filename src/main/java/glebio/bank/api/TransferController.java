@@ -9,7 +9,7 @@ import glebio.bank.data.Transfer;
  */
 public class TransferController {
 
-    public void transfer(Transfer transfer) {
+    synchronized public void transfer(Transfer transfer) {
         Account from = Db.getInstance().getAccount(transfer.getFromAccountId()).orElseThrow();
         Account to = Db.getInstance().getAccount(transfer.getToAccountId()).orElseThrow();
         from.setCents(from.getCents() - transfer.getCents());
