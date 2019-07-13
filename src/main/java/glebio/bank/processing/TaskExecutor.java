@@ -1,4 +1,4 @@
-package glebio.bank.data.processing;
+package glebio.bank.processing;
 
 
 import java.util.concurrent.ExecutorService;
