@@ -17,6 +17,7 @@ public class TransferController {
     private static final Logger logger = LogManager.getLogger();
 
     public void transfer(Transfer transfer) {
+        Db.getInstance().addTransfer(transfer);
         Account from = Db.getInstance().getAccount(transfer.getFromAccountId()).orElseThrow();
         Account to = Db.getInstance().getAccount(transfer.getToAccountId()).orElseThrow();
 
