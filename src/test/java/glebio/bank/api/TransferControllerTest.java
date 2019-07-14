@@ -1,11 +1,14 @@
 package glebio.bank.api;
 
+import java.lang.management.ManagementFactory;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.logging.Logger;
 
 import glebio.bank.data.Account;
 import glebio.bank.data.Db;
@@ -68,7 +71,36 @@ public class TransferControllerTest {
                 transferController.transfer(new Transfer(b.getId(), a.getId(), 1));
             }
         });
+
+        new DeadlockDetector().start();
+
         future1.get();
         future2.get();
+    }
+
+    static class DeadlockDetector extends Thread {
+
+        private static final Logger logger = Logger.getLogger(DeadlockDetector.class.getSimpleName());
+
+        DeadlockDetector() {
+            setName("DeadlockDetector");
+            setDaemon(true);
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                long[] monitorDeadlockedThreads = ManagementFactory.getThreadMXBean().findMonitorDeadlockedThreads();
+                if (monitorDeadlockedThreads != null) {
+                    logger.severe(String.format("Deadlock detected %s", Arrays.toString(monitorDeadlockedThreads)));
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    logger.warning(e.getMessage());
+                    break;
+                }
+            }
+        }
     }
 }
