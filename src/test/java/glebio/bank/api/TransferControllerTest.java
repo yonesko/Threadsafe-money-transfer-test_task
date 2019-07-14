@@ -44,7 +44,7 @@ public class TransferControllerTest {
         Assert.assertEquals(b.getCents(), 500_000);
     }
 
-    @Test(timeout = 300_000)
+    @Test(timeout = 3_000)
     public void deadLockTest() throws InterruptedException, ExecutionException {
         TransferController transferController = new TransferController();
         AccountController accountController = new AccountController();
@@ -58,19 +58,17 @@ public class TransferControllerTest {
         accountController.replenish(b.getId(), 1_000);
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-        Future<Object> submit = executorService.submit(() -> {
+        Future<?> future1 = executorService.submit(() -> {
             while (true) {
                 transferController.transfer(new Transfer(a.getId(), b.getId(), 1));
             }
         });
-        Future<Object> submit1 = executorService.submit(() -> {
+        Future<?> future2 = executorService.submit(() -> {
             while (true) {
                 transferController.transfer(new Transfer(b.getId(), a.getId(), 1));
             }
         });
-
-        submit.get();
-        submit1.get();
-
+        future1.get();
+        future2.get();
     }
 }
