@@ -4,6 +4,7 @@ package glebio.bank.api;
 import java.util.UUID;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,6 +19,8 @@ import glebio.bank.data.Db;
 @Path("/account")
 public class AccountController {
 
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
     public UUID addAccount() {
         Account account = new Account();
         Db.getInstance().addAccount(account);
