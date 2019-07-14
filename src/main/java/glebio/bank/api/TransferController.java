@@ -2,18 +2,19 @@ package glebio.bank.api;
 
 import java.util.Arrays;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import glebio.bank.data.Account;
 import glebio.bank.data.Db;
 import glebio.bank.data.Transfer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Gleb Danichev
  */
 public class TransferController {
 
-    private static final Logger logger = Logger.getLogger(TransferController.class.getSimpleName());
+    private static final Logger logger = LogManager.getLogger();
 
     public void transfer(Transfer transfer) {
         Account from = Db.getInstance().getAccount(transfer.getFromAccountId()).orElseThrow();
@@ -26,8 +27,8 @@ public class TransferController {
             synchronized (ids[1]) {
                 from.setCents(from.getCents() - transfer.getCents());
                 to.setCents(to.getCents() + transfer.getCents());
-                logger.info(String.format("Transferred %s from %s to %s",
-                    transfer.getCents(), transfer.getFromAccountId(), transfer.getToAccountId()));
+                logger.info("Transferred {} from {} to {}",
+                    transfer.getCents(), transfer.getFromAccountId(), transfer.getToAccountId());
             }
         }
     }
