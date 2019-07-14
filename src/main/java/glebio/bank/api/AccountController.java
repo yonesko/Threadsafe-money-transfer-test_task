@@ -3,6 +3,8 @@ package glebio.bank.api;
 
 import java.util.UUID;
 
+import javax.ws.rs.GET;
+
 import glebio.bank.data.Account;
 import glebio.bank.data.Db;
 
@@ -17,6 +19,7 @@ public class AccountController {
         return account.getId();
     }
 
+    @GET
     public Account getAccount(UUID accountId) {
         return Db.getInstance().getAccount(accountId).orElseThrow();
     }
