@@ -5,6 +5,12 @@ plugins {
 group 'glebio'
 version '1.0-SNAPSHOT'
 
+ext {
+    slf4jVersion = '1.7.25'
+    jettyVersion = '9.4.6.v20170531'
+    jerseyVersion = '2.29'
+}
+
 sourceCompatibility = 11
 
 repositories {
@@ -14,7 +20,17 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'com.google.guava:guava:28.0-jre'
-    compile 'org.glassfish.jersey.containers:jersey-container-jetty-http:2.25'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.12.0'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.0'
+
+    compile "org.eclipse.jetty:jetty-server:${jettyVersion}"
+    compile "org.eclipse.jetty:jetty-servlet:${jettyVersion}"
+
+    compile "org.glassfish.jersey.core:jersey-server:${jerseyVersion}"
+    compile "org.glassfish.jersey.containers:jersey-container-servlet-core:${jerseyVersion}"
+    compile "org.glassfish.jersey.containers:jersey-container-jetty-http:${jerseyVersion}"
+    compile "org.glassfish.jersey.media:jersey-media-json-jackson:${jerseyVersion}"
+    compile "org.glassfish.jersey.inject:jersey-hk2:${jerseyVersion}"
+    compile "javax.xml.bind:jaxb-api:2.3.0"
+    compile "javax.activation:activation:1.1"
 }
