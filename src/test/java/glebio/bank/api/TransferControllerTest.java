@@ -1,6 +1,7 @@
 package glebio.bank.api;
 
 import java.lang.management.ManagementFactory;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -45,8 +46,8 @@ public class TransferControllerTest {
         Assert.assertEquals(b.getCents(), 500_000);
     }
 
-    @Test(timeout = 3_000)
-    public void deadLockTest() throws InterruptedException, ExecutionException {
+    @Test
+    public void deadLockTest() throws InterruptedException {
         TransferController transferController = new TransferController();
         AccountController accountController = new AccountController();
 
@@ -71,9 +72,12 @@ public class TransferControllerTest {
         });
 
         for (int i = 0; i < 100; i++) {
-            Assert.assertNotNull(
-                "deadlock detected", ManagementFactory.getThreadMXBean().findMonitorDeadlockedThreads());
-            Thread.sleep(500);
+            long[] lockedThreadIds = ManagementFactory.getThreadMXBean().findMonitorDeadlockedThreads();
+            if (lockedThreadIds != null) {
+                throw new AssertionError("Deadlock detected:" + Arrays.toString(
+                    ManagementFactory.getThreadMXBean().getThreadInfo(lockedThreadIds)));
+            }
+            Thread.sleep(5);
         }
     }
 }
