@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import glebio.bank.core.account.AccountManager;
+import glebio.bank.core.account.AccountManagerImpl;
 import glebio.bank.data.Account;
 import glebio.bank.data.Db;
 
@@ -19,6 +21,8 @@ import glebio.bank.data.Db;
  */
 @Path("/account")
 public class AccountController {
+
+    private final AccountManager accountManager = new AccountManagerImpl();
 
     @POST
     @Produces(MediaType.TEXT_PLAIN)
@@ -38,6 +42,6 @@ public class AccountController {
     @POST
     @Path("{accountId}/replenish")
     public void replenish(@PathParam("accountId") UUID accountId, @QueryParam("cents") long cents) {
-        Db.getInstance().getAccount(accountId).orElseThrow().addCents(cents);
+        accountManager.replenish(accountId, cents);
     }
 }
