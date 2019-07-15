@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import glebio.bank.core.account.AccountManager;
 import glebio.bank.core.account.AccountManagerImpl;
@@ -38,7 +39,11 @@ public class AccountController {
 
     @POST
     @Path("{accountId}/replenish")
-    public void replenish(@PathParam("accountId") UUID accountId, @QueryParam("cents") long cents) {
-        accountManager.replenish(accountId, cents);
+    public Response replenish(@PathParam("accountId") UUID accountId, @QueryParam("cents") long cents) {
+        if (accountManager.getAccount(accountId) == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok().build();
     }
+
 }
