@@ -19,11 +19,14 @@ public class TransferControllerTest extends AbstractControllerIntegrationTest {
 
         Response transferResponce = target("transfer")
             .queryParam("from", tomAccount.getId().toString())
-            .queryParam("to", tomAccount.getId().toString())
-            .queryParam("cents", 1234 * 100)
+            .queryParam("to", zendayaAccount.getId().toString())
+            .queryParam("cents", 2300 * 100)
             .request().method("POST");
 
         Assert.assertEquals(Response.Status.OK.getStatusCode(), transferResponce.getStatus());
+
+        Assert.assertEquals(2700 * 100, getAccount(tomAccount).getCents());
+        Assert.assertEquals(2300 * 100, getAccount(zendayaAccount).getCents());
     }
 
     @Test

@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import glebio.bank.core.transfer.TransferManager;
 import glebio.bank.core.transfer.TransferManagerImpl;
@@ -26,13 +27,14 @@ public class TransferController {
     private final TransferManager transferManager = new TransferManagerImpl();
 
     @POST
-    public void transfer(
+    public Response transfer(
         @QueryParam("from") UUID fromAccountId,
         @QueryParam("to") UUID toAccountId,
         @QueryParam("cents") long cents
     )
     {
         transferManager.transfer(new Transfer(fromAccountId, toAccountId, cents));
+        return Response.ok().build();
     }
 
     @GET

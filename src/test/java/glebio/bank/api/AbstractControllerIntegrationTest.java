@@ -7,19 +7,21 @@ import javax.ws.rs.core.Response;
 
 import glebio.bank.api.account.AccountController;
 import glebio.bank.api.jersey.UUIDMessageBodyWriter;
+import glebio.bank.api.transfer.TransferController;
 import glebio.bank.data.model.Account;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
-import org.glassfish.jersey.test.TestProperties;
 import org.junit.Assert;
 
 public class AbstractControllerIntegrationTest extends JerseyTest {
 
     @Override
     protected Application configure() {
-        enable(TestProperties.LOG_TRAFFIC);
-        enable(TestProperties.DUMP_ENTITY);
-        return new ResourceConfig(AccountController.class, UUIDMessageBodyWriter.class);
+        return new ResourceConfig(
+            AccountController.class,
+            TransferController.class,
+            UUIDMessageBodyWriter.class
+        );
     }
 
     protected Account getAccount(Account accountCreated) {
