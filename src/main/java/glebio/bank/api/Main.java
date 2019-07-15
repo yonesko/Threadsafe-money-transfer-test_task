@@ -15,7 +15,11 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Server server = JettyHttpContainerFactory.createServer(
             UriBuilder.fromUri("http://localhost/").port(9998).build(),
-            new ResourceConfig(AccountController.class, UUIDMessageBodyWriter.class)
+            new ResourceConfig(
+                AccountController.class,
+                TransferController.class,
+                UUIDMessageBodyWriter.class
+            )
         );
         configureServer(server);
     }
