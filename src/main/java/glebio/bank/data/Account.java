@@ -27,6 +27,10 @@ public class Account {
         setCents(this.cents + cents);
     }
 
+    public void subtractCents(long cents) {
+        setCents(this.cents - cents);
+    }
+
     public void setCents(long cents) {
         Preconditions.checkArgument(cents >= 0, "negative sum %s", cents);
         this.cents = cents;

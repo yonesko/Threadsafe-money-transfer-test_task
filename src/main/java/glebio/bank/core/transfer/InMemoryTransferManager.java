@@ -27,8 +27,8 @@ public class InMemoryTransferManager implements TransferManager {
 
         synchronized (ids[0]) {
             synchronized (ids[1]) {
-                from.setCents(from.getCents() - transfer.getCents());
-                to.setCents(to.getCents() + transfer.getCents());
+                from.subtractCents(transfer.getCents());
+                to.addCents(transfer.getCents());
                 logger.info("Transferred {} cent(s) from {} to {}",
                     transfer.getCents(), transfer.getFromAccountId(), transfer.getToAccountId());
             }
