@@ -1,5 +1,7 @@
 package glebio.bank.api.account;
 
+import java.util.UUID;
+
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
 
@@ -21,10 +23,28 @@ public class AccountControllerIntegrationTest extends JerseyTest {
     }
 
     @Test
+    public void getAbsentAccountTest() {
+        Response response = target(AccountController.ACCOUNT_PATH)
+            .path(UUID.randomUUID().toString()).request().get();
+        Assert.assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
+    }
+
+
+    @Test
     public void accountCreationTest() {
         Account accountCreated = createAccount();
         Account accountActual = getAccount(accountCreated);
         Assert.assertEquals(accountCreated, accountActual);
+    }
+
+    @Test
+    public void replenishAbsentAccountTest() {
+        Response response = target(AccountController.ACCOUNT_PATH)
+            .path(UUID.randomUUID().toString())
+            .path("replenish")
+            .queryParam("cents", 922459).request().method("POST");
+
+        Assert.assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 
     @Test
