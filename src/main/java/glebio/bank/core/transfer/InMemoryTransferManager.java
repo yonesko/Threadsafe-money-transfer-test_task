@@ -3,9 +3,9 @@ package glebio.bank.core.transfer;
 import java.util.Arrays;
 import java.util.UUID;
 
-import glebio.bank.data.Account;
 import glebio.bank.data.Db;
-import glebio.bank.data.Transfer;
+import glebio.bank.data.model.Account;
+import glebio.bank.data.model.Transfer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

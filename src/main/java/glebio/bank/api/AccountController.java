@@ -13,8 +13,8 @@ import javax.ws.rs.core.MediaType;
 
 import glebio.bank.core.account.AccountManager;
 import glebio.bank.core.account.AccountManagerImpl;
-import glebio.bank.data.Account;
 import glebio.bank.data.Db;
+import glebio.bank.data.model.Account;
 
 /**
  * @author Gleb Danichev

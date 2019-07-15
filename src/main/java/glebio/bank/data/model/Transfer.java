@@ -1,4 +1,4 @@
-package glebio.bank.data;
+package glebio.bank.data.model;
 
 
 import java.time.Instant;

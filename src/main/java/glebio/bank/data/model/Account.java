@@ -1,4 +1,4 @@
-package glebio.bank.data;
+package glebio.bank.data.model;
 
 import java.util.UUID;
 
@@ -31,7 +31,7 @@ public class Account {
         setCents(this.cents - cents);
     }
 
-    public void setCents(long cents) {
+    private void setCents(long cents) {
         Preconditions.checkArgument(cents >= 0, "negative sum %s", cents);
         this.cents = cents;
     }

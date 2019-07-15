@@ -8,6 +8,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import glebio.bank.data.model.Account;
+import glebio.bank.data.model.Transfer;
+
 /**
  * @author Gleb Danichev
  */

@@ -2,7 +2,7 @@ package glebio.bank.api;
 
 import glebio.bank.core.transfer.InMemoryTransferManager;
 import glebio.bank.core.transfer.TransferManager;
-import glebio.bank.data.Transfer;
+import glebio.bank.data.model.Transfer;
 
 /**
  * @author Gleb Danichev

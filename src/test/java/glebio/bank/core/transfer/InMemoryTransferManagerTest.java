@@ -10,9 +10,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import glebio.bank.api.AccountController;
-import glebio.bank.data.Account;
 import glebio.bank.data.Db;
-import glebio.bank.data.Transfer;
+import glebio.bank.data.model.Account;
+import glebio.bank.data.model.Transfer;
 import org.junit.Assert;
 import org.junit.Test;
 
