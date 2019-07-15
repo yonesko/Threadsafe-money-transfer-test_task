@@ -15,5 +15,8 @@ public interface AccountManager {
      */
     Account addAccount();
 
+    /**
+     * @return {@link Account} or null if not found
+     */
     Account getAccount(UUID accountId);
 }
