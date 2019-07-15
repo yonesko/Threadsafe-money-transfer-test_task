@@ -40,4 +40,8 @@ public class Db {
     public void addTransfer(Transfer transfer) {
         transfers.add(transfer);
     }
+
+    public List<Transfer> getTransfers() {
+        return List.copyOf(transfers);
+    }
 }
