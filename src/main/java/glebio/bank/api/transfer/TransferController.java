@@ -13,9 +13,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import glebio.bank.core.account.AccountManager;
+import glebio.bank.core.account.AccountManagerImpl;
 import glebio.bank.core.transfer.TransferManager;
 import glebio.bank.core.transfer.TransferManagerImpl;
 import glebio.bank.data.Db;
+import glebio.bank.data.model.Account;
 import glebio.bank.data.model.Transfer;
 
 /**
@@ -26,6 +29,8 @@ public class TransferController {
 
     private final TransferManager transferManager = new TransferManagerImpl();
 
+    private final AccountManager accountManager = new AccountManagerImpl();
+
     @POST
     public Response transfer(
         @QueryParam("from") UUID fromAccountId,
@@ -33,6 +38,11 @@ public class TransferController {
         @QueryParam("cents") long cents
     )
     {
+        Account fromAccount = accountManager.getAccount(fromAccountId);
+        Account toAccount = accountManager.getAccount(toAccountId);
+        if (fromAccount.getCents() < cents) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
         transferManager.transfer(new Transfer(fromAccountId, toAccountId, cents));
         return Response.ok().build();
     }
