@@ -19,15 +19,20 @@ import glebio.bank.data.model.Account;
 /**
  * @author Gleb Danichev
  */
-@Path("account")
+@Path(AccountController.ACCOUNT_PATH)
 public class AccountController {
+
+    static final String ACCOUNT_PATH = "account";
 
     private final AccountManager accountManager = new AccountManagerImpl();
 
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public UUID addAccount() {
-        return accountManager.addAccount().getId();
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addAccount() {
+        return Response
+            .status(Response.Status.CREATED)
+            .entity(accountManager.addAccount())
+            .build();
     }
 
     @GET
