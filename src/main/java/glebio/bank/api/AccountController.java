@@ -19,7 +19,7 @@ import glebio.bank.data.model.Account;
 /**
  * @author Gleb Danichev
  */
-@Path("/account")
+@Path("account")
 public class AccountController {
 
     private final AccountManager accountManager = new AccountManagerImpl();
