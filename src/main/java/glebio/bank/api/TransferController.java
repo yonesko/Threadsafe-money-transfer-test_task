@@ -1,7 +1,7 @@
 package glebio.bank.api;
 
-import glebio.bank.core.transfer.InMemoryTransferManager;
 import glebio.bank.core.transfer.TransferManager;
+import glebio.bank.core.transfer.TransferManagerImpl;
 import glebio.bank.data.model.Transfer;
 
 /**
@@ -9,7 +9,7 @@ import glebio.bank.data.model.Transfer;
  */
 public class TransferController {
 
-    private final TransferManager transferManager = new InMemoryTransferManager();
+    private final TransferManager transferManager = new TransferManagerImpl();
 
     public void transfer(Transfer transfer) {
         transferManager.transfer(transfer);

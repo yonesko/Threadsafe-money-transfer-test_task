@@ -16,11 +16,11 @@ import glebio.bank.data.model.Transfer;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class InMemoryTransferManagerTest {
+public class TransferManagerImplTest {
 
     @Test
     public void raceConditionTest() throws InterruptedException, ExecutionException {
-        TransferManager transferController = new InMemoryTransferManager();
+        TransferManager transferController = new TransferManagerImpl();
         AccountController accountController = new AccountController();
         Account a = new Account();
         Account b = new Account();
@@ -46,7 +46,7 @@ public class InMemoryTransferManagerTest {
 
     @Test
     public void deadLockTest() throws InterruptedException {
-        TransferManager transferController = new InMemoryTransferManager();
+        TransferManager transferController = new TransferManagerImpl();
         AccountController accountController = new AccountController();
 
         Account a = new Account();

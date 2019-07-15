@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * @author Gleb Danichev
  */
-public class InMemoryTransferManager implements TransferManager {
+public class TransferManagerImpl implements TransferManager {
 
     private static final Logger logger = LogManager.getLogger();
 
