@@ -2,25 +2,14 @@ package glebio.bank.api.account;
 
 import java.util.UUID;
 
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
 
-import glebio.bank.api.jersey.UUIDMessageBodyWriter;
+import glebio.bank.api.AbstractControllerIntegrationTest;
 import glebio.bank.data.model.Account;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.test.JerseyTest;
-import org.glassfish.jersey.test.TestProperties;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class AccountControllerIntegrationTest extends JerseyTest {
-
-    @Override
-    protected Application configure() {
-        enable(TestProperties.LOG_TRAFFIC);
-        enable(TestProperties.DUMP_ENTITY);
-        return new ResourceConfig(AccountController.class, UUIDMessageBodyWriter.class);
-    }
+public class AccountControllerIntegrationTest extends AbstractControllerIntegrationTest {
 
     @Test
     public void getAbsentAccountTest() {
@@ -28,7 +17,6 @@ public class AccountControllerIntegrationTest extends JerseyTest {
             .path(UUID.randomUUID().toString()).request().get();
         Assert.assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
     }
-
 
     @Test
     public void accountCreationTest() {
@@ -39,36 +27,14 @@ public class AccountControllerIntegrationTest extends JerseyTest {
 
     @Test
     public void replenishAbsentAccountTest() {
-        Response response = target("account")
-            .path(UUID.randomUUID().toString())
-            .path("replenish")
-            .queryParam("cents", 922459).request().method("POST");
-
+        Response response = replenish(UUID.randomUUID(), 34);
         Assert.assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 
     @Test
     public void accountReplenishTest() {
         Account account = createAccount();
-        target("account")
-            .path(account.getId().toString())
-            .path("replenish")
-            .queryParam("cents", 922459).request().method("POST");
+        replenish(account.getId(), 922459);
         Assert.assertEquals(922459, getAccount(account).getCents());
-    }
-
-    private Account getAccount(Account accountCreated) {
-        return target("account")
-            .path(accountCreated.getId().toString()).request()
-            .get(Account.class);
-    }
-
-    private Account createAccount() {
-        Response response = target("account").request().method("POST");
-
-        Assert.assertEquals("Http Response should be 201 ",
-            Response.Status.CREATED.getStatusCode(), response.getStatus());
-
-        return response.readEntity(Account.class);
     }
 }
