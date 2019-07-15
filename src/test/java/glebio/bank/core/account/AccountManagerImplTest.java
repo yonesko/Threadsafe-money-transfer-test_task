@@ -7,18 +7,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import glebio.bank.data.Db;
 import glebio.bank.data.model.Account;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class AccountManagerImplTest {
 
+    private final AccountManager accountManager = new AccountManagerImpl();
+
     @Test
     public void replenishRaceConditionTest() throws ExecutionException, InterruptedException {
-        AccountManager accountManager = new AccountManagerImpl();
-        Account a = new Account();
-        Db.getInstance().addAccount(a);
+        Account a = accountManager.addAccount();
 
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Future<?>> futures = new LinkedList<>();

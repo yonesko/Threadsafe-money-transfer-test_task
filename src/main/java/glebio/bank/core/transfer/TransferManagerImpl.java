@@ -16,11 +16,13 @@ public class TransferManagerImpl implements TransferManager {
 
     private static final Logger logger = LogManager.getLogger();
 
+    private final Db db = Db.getInstance();
+
     @Override
     public void transfer(Transfer transfer) {
-        Db.getInstance().addTransfer(transfer);
-        Account from = Db.getInstance().getAccount(transfer.getFromAccountId()).orElseThrow();
-        Account to = Db.getInstance().getAccount(transfer.getToAccountId()).orElseThrow();
+        Account from = db.getAccounts().get(transfer.getFromAccountId());
+        Account to = db.getAccounts().get(transfer.getToAccountId());
+        db.getTransfers().add(transfer);
 
         UUID[] ids = {from.getId(), to.getId()};
         Arrays.sort(ids);

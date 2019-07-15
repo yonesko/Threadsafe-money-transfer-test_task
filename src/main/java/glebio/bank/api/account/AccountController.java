@@ -13,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 
 import glebio.bank.core.account.AccountManager;
 import glebio.bank.core.account.AccountManagerImpl;
-import glebio.bank.data.Db;
 import glebio.bank.data.model.Account;
 
 /**
@@ -27,16 +26,14 @@ public class AccountController {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public UUID addAccount() {
-        Account account = new Account();
-        Db.getInstance().addAccount(account);
-        return account.getId();
+        return accountManager.addAccount().getId();
     }
 
     @GET
     @Path("{accountId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Account getAccount(@PathParam("accountId") UUID accountId) {
-        return Db.getInstance().getAccount(accountId).orElseThrow();
+        return accountManager.getAccount(accountId);
     }
 
     @POST

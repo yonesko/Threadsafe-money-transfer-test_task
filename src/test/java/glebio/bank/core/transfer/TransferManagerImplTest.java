@@ -11,7 +11,6 @@ import java.util.concurrent.Future;
 
 import glebio.bank.core.account.AccountManager;
 import glebio.bank.core.account.AccountManagerImpl;
-import glebio.bank.data.Db;
 import glebio.bank.data.model.Account;
 import glebio.bank.data.model.Transfer;
 import org.junit.Assert;
@@ -19,14 +18,14 @@ import org.junit.Test;
 
 public class TransferManagerImplTest {
 
+    private final TransferManager transferController = new TransferManagerImpl();
+
+    private final AccountManager accountManager = new AccountManagerImpl();
+
     @Test
     public void raceConditionTest() throws InterruptedException, ExecutionException {
-        TransferManager transferController = new TransferManagerImpl();
-        AccountManager accountManager = new AccountManagerImpl();
-        Account a = new Account();
-        Account b = new Account();
-        Db.getInstance().addAccount(a);
-        Db.getInstance().addAccount(b);
+        Account a = accountManager.addAccount();
+        Account b = accountManager.addAccount();
 
         accountManager.replenish(a.getId(), 500_000);
 
@@ -47,13 +46,8 @@ public class TransferManagerImplTest {
 
     @Test
     public void deadLockTest() throws InterruptedException {
-        TransferManager transferController = new TransferManagerImpl();
-        AccountManager accountManager = new AccountManagerImpl();
-
-        Account a = new Account();
-        Account b = new Account();
-        Db.getInstance().addAccount(a);
-        Db.getInstance().addAccount(b);
+        Account a = accountManager.addAccount();
+        Account b = accountManager.addAccount();
 
         accountManager.replenish(a.getId(), 1_000);
         accountManager.replenish(b.getId(), 1_000);
