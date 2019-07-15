@@ -40,6 +40,9 @@ public class TransferController {
     {
         Account fromAccount = accountManager.getAccount(fromAccountId);
         Account toAccount = accountManager.getAccount(toAccountId);
+        if (fromAccount.equals(toAccount)) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
         if (fromAccount.getCents() < cents) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }

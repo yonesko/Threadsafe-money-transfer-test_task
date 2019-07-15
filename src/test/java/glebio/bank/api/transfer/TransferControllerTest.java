@@ -34,6 +34,14 @@ public class TransferControllerTest extends AbstractControllerIntegrationTest {
     }
 
     @Test
+    public void transferSameFromAndToTest() {
+        Account account = createAccount();
+        replenish(account.getId(), 5);
+        Response response = transfer(account, account, 1);
+        Assert.assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+    }
+
+    @Test
     public void findTransfers() {
     }
 }
