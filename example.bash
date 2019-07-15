@@ -22,5 +22,5 @@ echo "My account: $(curl -s "http://localhost:9998/account/$myAccountId")"
 echo "Wife's account: $(curl -s "http://localhost:9998/account/$wifeAccountId")"
 
 echo 'All my transfers:'
-curl -s "http://localhost:9998/transfer?from=$myAccountId"
+curl -s "http://localhost:9998/transfer?from=$myAccountId"|jq
 
