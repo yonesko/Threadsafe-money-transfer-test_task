@@ -24,7 +24,7 @@ public class AccountControllerIntegrationTest extends JerseyTest {
 
     @Test
     public void getAbsentAccountTest() {
-        Response response = target(AccountController.ACCOUNT_PATH)
+        Response response = target("account")
             .path(UUID.randomUUID().toString()).request().get();
         Assert.assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
     }
@@ -39,7 +39,7 @@ public class AccountControllerIntegrationTest extends JerseyTest {
 
     @Test
     public void replenishAbsentAccountTest() {
-        Response response = target(AccountController.ACCOUNT_PATH)
+        Response response = target("account")
             .path(UUID.randomUUID().toString())
             .path("replenish")
             .queryParam("cents", 922459).request().method("POST");
@@ -50,7 +50,7 @@ public class AccountControllerIntegrationTest extends JerseyTest {
     @Test
     public void accountReplenishTest() {
         Account account = createAccount();
-        target(AccountController.ACCOUNT_PATH)
+        target("account")
             .path(account.getId().toString())
             .path("replenish")
             .queryParam("cents", 922459).request().method("POST");
@@ -58,13 +58,13 @@ public class AccountControllerIntegrationTest extends JerseyTest {
     }
 
     private Account getAccount(Account accountCreated) {
-        return target(AccountController.ACCOUNT_PATH)
+        return target("account")
             .path(accountCreated.getId().toString()).request()
             .get(Account.class);
     }
 
     private Account createAccount() {
-        Response response = target(AccountController.ACCOUNT_PATH).request().method("POST");
+        Response response = target("account").request().method("POST");
 
         Assert.assertEquals("Http Response should be 201 ",
             Response.Status.CREATED.getStatusCode(), response.getStatus());
