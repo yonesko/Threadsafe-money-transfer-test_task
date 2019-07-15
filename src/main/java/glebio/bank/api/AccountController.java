@@ -28,7 +28,7 @@ public class AccountController {
     }
 
     @GET
-    @Path("/{accountId}")
+    @Path("{accountId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Account getAccount(@PathParam("accountId") UUID accountId) {
         return Db.getInstance().getAccount(accountId).orElseThrow();
