@@ -26,9 +26,11 @@ public class TransferControllerTest extends AbstractControllerIntegrationTest {
     }
 
     @Test
-    public void transferErrorTest() {
+    public void transferNotEnoughMoneyTest() {
         Account tomAccount = createAccount();
         Account zendayaAccount = createAccount();
+        Response response = transfer(tomAccount, zendayaAccount, 2345678);
+        Assert.assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
     }
 
     @Test
