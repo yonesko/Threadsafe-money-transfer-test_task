@@ -9,7 +9,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import glebio.bank.api.AccountController;
+import glebio.bank.core.account.AccountManager;
+import glebio.bank.core.account.AccountManagerImpl;
 import glebio.bank.data.Db;
 import glebio.bank.data.model.Account;
 import glebio.bank.data.model.Transfer;
@@ -21,13 +22,13 @@ public class TransferManagerImplTest {
     @Test
     public void raceConditionTest() throws InterruptedException, ExecutionException {
         TransferManager transferController = new TransferManagerImpl();
-        AccountController accountController = new AccountController();
+        AccountManager accountManager = new AccountManagerImpl();
         Account a = new Account();
         Account b = new Account();
         Db.getInstance().addAccount(a);
         Db.getInstance().addAccount(b);
 
-        accountController.replenish(a.getId(), 500_000);
+        accountManager.replenish(a.getId(), 500_000);
 
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Future<?>> futures = new LinkedList<>();
@@ -47,15 +48,15 @@ public class TransferManagerImplTest {
     @Test
     public void deadLockTest() throws InterruptedException {
         TransferManager transferController = new TransferManagerImpl();
-        AccountController accountController = new AccountController();
+        AccountManager accountManager = new AccountManagerImpl();
 
         Account a = new Account();
         Account b = new Account();
         Db.getInstance().addAccount(a);
         Db.getInstance().addAccount(b);
 
-        accountController.replenish(a.getId(), 1_000);
-        accountController.replenish(b.getId(), 1_000);
+        accountManager.replenish(a.getId(), 1_000);
+        accountManager.replenish(b.getId(), 1_000);
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.execute(() -> {

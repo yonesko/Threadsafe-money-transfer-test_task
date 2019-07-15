@@ -1,4 +1,4 @@
-package glebio.bank.api;
+package glebio.bank.api.transfer;
 
 import java.util.Comparator;
 import java.util.List;

@@ -1,4 +1,4 @@
-package glebio.bank.api;
+package glebio.bank.api.account;
 
 
 import java.util.UUID;
