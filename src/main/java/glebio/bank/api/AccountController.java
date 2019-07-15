@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import glebio.bank.data.Account;
@@ -34,8 +35,9 @@ public class AccountController {
         return Db.getInstance().getAccount(accountId).orElseThrow();
     }
 
-    public void replenish(UUID accountId, long cents) {
-        Db.getInstance().getAccount(accountId).orElseThrow()
-            .addCents(cents);
+    @POST
+    @Path("{accountId}/replenish")
+    public void replenish(@PathParam("accountId") UUID accountId, @QueryParam("cents") long cents) {
+        Db.getInstance().getAccount(accountId).orElseThrow().addCents(cents);
     }
 }
