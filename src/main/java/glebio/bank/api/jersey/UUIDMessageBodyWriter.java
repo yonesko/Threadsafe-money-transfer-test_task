@@ -1,4 +1,4 @@
-package glebio.bank.api;
+package glebio.bank.api.jersey;
 
 import java.io.IOException;
 import java.io.OutputStream;

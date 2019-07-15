@@ -3,6 +3,7 @@ package glebio.bank.api;
 import javax.ws.rs.core.UriBuilder;
 
 import glebio.bank.api.account.AccountController;
+import glebio.bank.api.jersey.UUIDMessageBodyWriter;
 import glebio.bank.api.transfer.TransferController;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.Slf4jRequestLog;
