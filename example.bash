@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
-accountId=$(curl  -X POST  "http://localhost:9998/account")
+myAccountId=$(curl  -X POST  "http://localhost:9998/account")
+wifeAccountId=$(curl  -X POST  "http://localhost:9998/account")
 
-echo "Created account $accountId in Glebio Bank"
+echo "Created accounts in Glebio Bank"
 
-curl "http://localhost:9998/account/$accountId"; echo
+curl "http://localhost:9998/account/$myAccountId"; echo
+curl "http://localhost:9998/account/$wifeAccountId"; echo
 
-curl -X POST "http://localhost:9998/account/$accountId/replenish?cents=545688"
+curl -X POST "http://localhost:9998/account/$myAccountId/replenish?cents=500000"
 
-echo "Add money to account"
+echo 'Add $5000 to my account'
 
-curl "http://localhost:9998/account/$accountId"; echo
+curl "http://localhost:9998/account/$myAccountId"; echo
