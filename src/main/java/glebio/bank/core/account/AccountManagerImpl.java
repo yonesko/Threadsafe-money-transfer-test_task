@@ -10,6 +10,8 @@ public class AccountManagerImpl implements AccountManager {
     @Override
     public void replenish(UUID accountId, long cents) {
         Account account = Db.getInstance().getAccount(accountId).orElseThrow();
-        account.addCents(cents);
+        synchronized (account) {
+            account.addCents(cents);
+        }
     }
 }
