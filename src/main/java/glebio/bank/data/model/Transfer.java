@@ -25,6 +25,7 @@ public class Transfer {
 
     public Transfer(UUID fromAccountId, UUID toAccountId, long cents) {
         Preconditions.checkArgument(cents >= 0, "negative sum %s", cents);
+        Preconditions.checkArgument(!fromAccountId.equals(toAccountId), "same from and to %s", fromAccountId);
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.cents = cents;
