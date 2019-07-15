@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
 
 /**
  * @author Gleb Danichev
@@ -23,6 +24,7 @@ public class Transfer {
     private final long cents;
 
     public Transfer(UUID fromAccountId, UUID toAccountId, long cents) {
+        Preconditions.checkArgument(cents >= 0, "negative sum %s", cents);
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.cents = cents;
