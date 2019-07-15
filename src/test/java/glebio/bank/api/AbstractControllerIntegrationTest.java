@@ -45,4 +45,12 @@ public class AbstractControllerIntegrationTest extends JerseyTest {
             .path("replenish")
             .queryParam("cents", cents).request().method("POST");
     }
+
+    protected Response transfer(Account fromAccount, Account toAccount, int cents) {
+        return target("transfer")
+            .queryParam("from", fromAccount.getId().toString())
+            .queryParam("to", toAccount.getId().toString())
+            .queryParam("cents", cents)
+            .request().method("POST");
+    }
 }

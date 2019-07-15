@@ -17,16 +17,18 @@ public class TransferControllerTest extends AbstractControllerIntegrationTest {
         Response replenishResponse = replenish(tomAccount.getId(), 5000 * 100);
         Assert.assertEquals(Response.Status.OK.getStatusCode(), replenishResponse.getStatus());
 
-        Response transferResponce = target("transfer")
-            .queryParam("from", tomAccount.getId().toString())
-            .queryParam("to", zendayaAccount.getId().toString())
-            .queryParam("cents", 2300 * 100)
-            .request().method("POST");
+        Response transferResponce = transfer(tomAccount, zendayaAccount, 2300 * 100);
 
         Assert.assertEquals(Response.Status.OK.getStatusCode(), transferResponce.getStatus());
 
         Assert.assertEquals(2700 * 100, getAccount(tomAccount.getId()).getCents());
         Assert.assertEquals(2300 * 100, getAccount(zendayaAccount.getId()).getCents());
+    }
+
+    @Test
+    public void transferErrorTest() {
+        Account tomAccount = createAccount();
+        Account zendayaAccount = createAccount();
     }
 
     @Test
