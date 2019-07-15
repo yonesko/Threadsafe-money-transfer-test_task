@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 accountId=$(curl  -X POST  "http://localhost:9998/account")
 
 echo "Created account $accountId in Glebio Bank"
