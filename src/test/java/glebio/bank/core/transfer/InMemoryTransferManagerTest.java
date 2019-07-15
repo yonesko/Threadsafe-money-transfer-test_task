@@ -1,4 +1,4 @@
-package glebio.bank.core;
+package glebio.bank.core.transfer;
 
 import java.lang.management.ManagementFactory;
 import java.util.Arrays;

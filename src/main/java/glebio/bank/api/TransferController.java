@@ -1,7 +1,7 @@
 package glebio.bank.api;
 
-import glebio.bank.core.InMemoryTransferManager;
-import glebio.bank.core.TransferManager;
+import glebio.bank.core.transfer.InMemoryTransferManager;
+import glebio.bank.core.transfer.TransferManager;
 import glebio.bank.data.Transfer;
 
 /**
