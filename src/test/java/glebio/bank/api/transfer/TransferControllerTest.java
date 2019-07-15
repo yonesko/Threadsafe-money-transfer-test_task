@@ -25,8 +25,8 @@ public class TransferControllerTest extends AbstractControllerIntegrationTest {
 
         Assert.assertEquals(Response.Status.OK.getStatusCode(), transferResponce.getStatus());
 
-        Assert.assertEquals(2700 * 100, getAccount(tomAccount).getCents());
-        Assert.assertEquals(2300 * 100, getAccount(zendayaAccount).getCents());
+        Assert.assertEquals(2700 * 100, getAccount(tomAccount.getId()).getCents());
+        Assert.assertEquals(2300 * 100, getAccount(zendayaAccount.getId()).getCents());
     }
 
     @Test

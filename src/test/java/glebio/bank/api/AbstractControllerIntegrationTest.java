@@ -24,9 +24,9 @@ public class AbstractControllerIntegrationTest extends JerseyTest {
         );
     }
 
-    protected Account getAccount(Account accountCreated) {
+    protected Account getAccount(UUID accountCreatedId) {
         return target("account")
-            .path(accountCreated.getId().toString()).request()
+            .path(accountCreatedId.toString()).request()
             .get(Account.class);
     }
 

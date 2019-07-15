@@ -21,7 +21,7 @@ public class AccountControllerIntegrationTest extends AbstractControllerIntegrat
     @Test
     public void accountCreationTest() {
         Account accountCreated = createAccount();
-        Account accountActual = getAccount(accountCreated);
+        Account accountActual = getAccount(accountCreated.getId());
         Assert.assertEquals(accountCreated, accountActual);
     }
 
@@ -35,6 +35,6 @@ public class AccountControllerIntegrationTest extends AbstractControllerIntegrat
     public void accountReplenishTest() {
         Account account = createAccount();
         replenish(account.getId(), 922459);
-        Assert.assertEquals(922459, getAccount(account).getCents());
+        Assert.assertEquals(922459, getAccount(account.getId()).getCents());
     }
 }
