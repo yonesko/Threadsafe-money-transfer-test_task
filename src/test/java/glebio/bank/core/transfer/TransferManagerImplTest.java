@@ -73,4 +73,18 @@ public class TransferManagerImplTest {
             Thread.sleep(5);
         }
     }
+
+    @Test
+    public void findTransfersTest() {
+        Account a = accountManager.addAccount();
+        Account b = accountManager.addAccount();
+
+        accountManager.replenish(a.getId(), 500_000);
+        for (int i = 0; i < 100_000; i++) {
+            transferManager.transfer(new Transfer(a.getId(), b.getId(), 1));
+        }
+
+        Assert.assertEquals(100_000, transferManager.findTransfers(a.getId()).size());
+
+    }
 }
