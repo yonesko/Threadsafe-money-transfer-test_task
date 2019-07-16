@@ -1,9 +1,7 @@
 package glebio.bank.api.transfer;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,7 +15,6 @@ import glebio.bank.core.account.AccountManager;
 import glebio.bank.core.account.AccountManagerImpl;
 import glebio.bank.core.transfer.TransferManager;
 import glebio.bank.core.transfer.TransferManagerImpl;
-import glebio.bank.data.Db;
 import glebio.bank.data.model.Account;
 import glebio.bank.data.model.Transfer;
 
@@ -56,9 +53,6 @@ public class TransferController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Transfer> findTransfers(@QueryParam("from") UUID fromAccountId) {
-        return Db.getInstance().getTransfers().stream()
-            .sorted(Comparator.comparing(Transfer::getCreated).reversed())
-            .filter(transfer -> transfer.getFromAccountId().equals(fromAccountId))
-            .collect(Collectors.toList());
+        return transferManager.findTransfers(fromAccountId);
     }
 }

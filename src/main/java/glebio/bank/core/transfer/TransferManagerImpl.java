@@ -1,7 +1,10 @@
 package glebio.bank.core.transfer;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import glebio.bank.data.Db;
 import glebio.bank.data.model.Account;
@@ -39,5 +42,13 @@ public class TransferManagerImpl implements TransferManager {
                 );
             }
         }
+    }
+
+    @Override
+    public List<Transfer> findTransfers(UUID fromAccountId) {
+        return Db.getInstance().getTransfers().stream()
+            .sorted(Comparator.comparing(Transfer::getCreated).reversed())
+            .filter(transfer -> transfer.getFromAccountId().equals(fromAccountId))
+            .collect(Collectors.toList());
     }
 }
