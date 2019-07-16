@@ -31,8 +31,12 @@ public class TransferManagerImpl implements TransferManager {
             synchronized (ids[1]) {
                 from.subtractCents(transfer.getCents());
                 to.addCents(transfer.getCents());
-                logger.info("Transferred {} cent(s) from {} to {}",
-                    transfer.getCents(), transfer.getFromAccountId(), transfer.getToAccountId());
+                logger.info(
+                    "Transferred {} cent(s) from {} to {}",
+                    transfer.getCents(),
+                    transfer.getFromAccountId(),
+                    transfer.getToAccountId()
+                );
             }
         }
     }
