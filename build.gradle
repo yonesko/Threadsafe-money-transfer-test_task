@@ -20,9 +20,7 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'com.google.guava:guava:28.0-jre'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.12.0'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.0'
-
+    
     compile "org.eclipse.jetty:jetty-server:${jettyVersion}"
     compile "org.eclipse.jetty:jetty-servlet:${jettyVersion}"
 
@@ -32,7 +30,8 @@ dependencies {
     compile "org.glassfish.jersey.media:jersey-media-json-jackson:${jerseyVersion}"
     compile "org.glassfish.jersey.inject:jersey-hk2:${jerseyVersion}"
     compile group: 'org.glassfish.jersey.test-framework', name: 'jersey-test-framework-core', version: '2.13'
-    testCompile group: 'org.glassfish.jersey.test-framework.providers', name: 'jersey-test-framework-provider-jetty', version: '2.29'
+    testCompile group: 'org.glassfish.jersey.test-framework.providers', name: 'jersey-test-framework-provider-jetty',
+            version: '2.29'
 
     compile "javax.xml.bind:jaxb-api:2.3.0"
     compile "javax.activation:activation:1.1"

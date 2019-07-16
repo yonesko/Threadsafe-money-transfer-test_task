@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import glebio.bank.core.account.AccountManager;
 import glebio.bank.core.account.AccountManagerImpl;
@@ -42,10 +43,12 @@ public class TransferManagerImplTest {
 
         Assert.assertEquals(a.getCents(), 0);
         Assert.assertEquals(b.getCents(), 500_000);
+        executorService.shutdownNow();
     }
 
     @Test
     public void deadLockTest() throws InterruptedException {
+        AtomicBoolean stop = new AtomicBoolean();
         Account a = accountManager.addAccount();
         Account b = accountManager.addAccount();
 
@@ -54,12 +57,12 @@ public class TransferManagerImplTest {
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.execute(() -> {
-            while (true) {
+            while (!stop.get()) {
                 transferManager.transfer(new Transfer(a.getId(), b.getId(), 1));
             }
         });
         executorService.execute(() -> {
-            while (true) {
+            while (!stop.get()) {
                 transferManager.transfer(new Transfer(b.getId(), a.getId(), 1));
             }
         });
@@ -72,6 +75,8 @@ public class TransferManagerImplTest {
             }
             Thread.sleep(5);
         }
+        stop.set(true);
+        executorService.shutdownNow();
     }
 
     @Test
