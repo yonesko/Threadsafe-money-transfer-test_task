@@ -90,6 +90,5 @@ public class TransferManagerImplTest {
         }
 
         Assert.assertEquals(100_000, transferManager.findTransfers(a.getId()).size());
-
     }
 }
