@@ -46,6 +46,9 @@ public class AccountController {
         if (accountManager.getAccount(accountId) == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+        if (cents <= 0) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
         accountManager.replenish(accountId, cents);
         return Response.ok().build();
     }

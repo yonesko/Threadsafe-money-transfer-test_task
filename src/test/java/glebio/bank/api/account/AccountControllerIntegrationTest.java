@@ -32,6 +32,13 @@ public class AccountControllerIntegrationTest extends AbstractControllerIntegrat
     }
 
     @Test
+    public void replenishNegativeSumTest() {
+        Account account = createAccount();
+        Response response = replenish(account.getId(), -1);
+        Assert.assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+    }
+
+    @Test
     public void accountReplenishTest() {
         Account account = createAccount();
         replenish(account.getId(), 922459);
