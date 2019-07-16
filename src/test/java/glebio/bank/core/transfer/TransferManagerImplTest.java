@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadLocalRandom;
 
 import glebio.bank.core.account.AccountManager;
 import glebio.bank.core.account.AccountManagerImpl;
@@ -32,8 +33,9 @@ public class TransferManagerImplTest {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Future<?>> futures = new LinkedList<>();
         for (int i = 0; i < 500_000; i++) {
-            futures.add(
-                executorService.submit(() -> transferController.transfer(new Transfer(a.getId(), b.getId(), 1))));
+            futures.add(executorService.submit(() -> transferController.transfer(new Transfer(
+                a.getId(), b.getId(), ThreadLocalRandom.current().nextInt(100)
+            ))));
         }
 
         for (Future<?> future : futures) {
