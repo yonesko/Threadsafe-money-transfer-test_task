@@ -37,6 +37,14 @@ public class TransferControllerTest extends AbstractControllerIntegrationTest {
     }
 
     @Test
+    public void transferNegativeMoneyTest() {
+        Account tomAccount = createAccount();
+        Account zendayaAccount = createAccount();
+        Response response = transfer(tomAccount, zendayaAccount, -2345678);
+        Assert.assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
+    }
+
+    @Test
     public void transferSameFromAndToTest() {
         Account account = createAccount();
         replenish(account.getId(), 5);

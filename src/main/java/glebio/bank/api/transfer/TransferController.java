@@ -38,6 +38,9 @@ public class TransferController {
         @QueryParam("cents") long cents
     )
     {
+        if (cents <= 0) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
         Account fromAccount = accountManager.getAccount(fromAccountId);
         Account toAccount = accountManager.getAccount(toAccountId);
         if (fromAccount.equals(toAccount)) {
