@@ -22,7 +22,6 @@ public class TransferManagerImpl implements TransferManager {
     public void transfer(Transfer transfer) {
         Account from = db.getAccounts().get(transfer.getFromAccountId());
         Account to = db.getAccounts().get(transfer.getToAccountId());
-        db.getTransfers().add(transfer);
 
         UUID[] ids = {from.getId(), to.getId()};
         Arrays.sort(ids);
@@ -31,6 +30,7 @@ public class TransferManagerImpl implements TransferManager {
             synchronized (ids[1]) {
                 from.subtractCents(transfer.getCents());
                 to.addCents(transfer.getCents());
+                db.getTransfers().add(transfer);
                 logger.info(
                     "Transferred {} cent(s) from {} to {}",
                     transfer.getCents(),
