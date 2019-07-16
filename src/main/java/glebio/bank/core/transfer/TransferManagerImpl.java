@@ -30,6 +30,10 @@ public class TransferManagerImpl implements TransferManager {
 
         synchronized (ids[0]) {
             synchronized (ids[1]) {
+                if (from.getCents() < transfer.getCents()) {
+                    logger.error("No enough sum {}", transfer);
+                    return;
+                }
                 from.subtractCents(transfer.getCents());
                 to.addCents(transfer.getCents());
                 db.getTransfers().add(transfer);
