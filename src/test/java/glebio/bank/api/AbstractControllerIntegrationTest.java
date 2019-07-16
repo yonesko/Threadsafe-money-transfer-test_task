@@ -6,7 +6,6 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
 
 import glebio.bank.api.account.AccountController;
-import glebio.bank.api.jersey.UUIDMessageBodyWriter;
 import glebio.bank.api.transfer.TransferController;
 import glebio.bank.data.model.Account;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -17,11 +16,7 @@ public class AbstractControllerIntegrationTest extends JerseyTest {
 
     @Override
     protected Application configure() {
-        return new ResourceConfig(
-            AccountController.class,
-            TransferController.class,
-            UUIDMessageBodyWriter.class
-        );
+        return new ResourceConfig(AccountController.class, TransferController.class);
     }
 
     protected Account getAccount(UUID accountCreatedId) {
