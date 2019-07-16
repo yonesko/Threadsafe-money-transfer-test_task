@@ -36,8 +36,12 @@ public class AccountController {
     @GET
     @Path("{accountId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Account getAccount(@PathParam("accountId") UUID accountId) {
-        return accountManager.getAccount(accountId);
+    public Response getAccount(@PathParam("accountId") UUID accountId) {
+        Account account = accountManager.getAccount(accountId);
+        if (account == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(account).build();
     }
 
     @POST

@@ -15,7 +15,7 @@ public class AccountControllerIntegrationTest extends AbstractControllerIntegrat
     public void getAbsentAccountTest() {
         Response response = target("account")
             .path(UUID.randomUUID().toString()).request().get();
-        Assert.assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
+        Assert.assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 
     @Test
