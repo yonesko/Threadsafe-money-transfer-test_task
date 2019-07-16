@@ -49,7 +49,7 @@ public class TransferManagerImpl implements TransferManager {
 
     @Override
     public List<Transfer> findTransfers(UUID fromAccountId) {
-        return Db.getInstance().getTransfers().stream()
+        return List.copyOf(Db.getInstance().getTransfers()).stream()
             .sorted(Comparator.comparing(Transfer::getCreated).reversed())
             .filter(transfer -> transfer.getFromAccountId().equals(fromAccountId))
             .collect(Collectors.toList());
