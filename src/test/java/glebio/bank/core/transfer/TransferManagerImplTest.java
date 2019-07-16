@@ -19,7 +19,7 @@ import org.junit.Test;
 
 public class TransferManagerImplTest {
 
-    private final TransferManager transferController = new TransferManagerImpl();
+    private final TransferManager transferManager = new TransferManagerImpl();
 
     private final AccountManager accountManager = new AccountManagerImpl();
 
@@ -33,7 +33,7 @@ public class TransferManagerImplTest {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Future<?>> futures = new LinkedList<>();
         for (int i = 0; i < 500_000; i++) {
-            futures.add(executorService.submit(() -> transferController.transfer(new Transfer(
+            futures.add(executorService.submit(() -> transferManager.transfer(new Transfer(
                 a.getId(), b.getId(), ThreadLocalRandom.current().nextInt(100)
             ))));
         }
@@ -57,12 +57,12 @@ public class TransferManagerImplTest {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.execute(() -> {
             while (true) {
-                transferController.transfer(new Transfer(a.getId(), b.getId(), 1));
+                transferManager.transfer(new Transfer(a.getId(), b.getId(), 1));
             }
         });
         executorService.execute(() -> {
             while (true) {
-                transferController.transfer(new Transfer(b.getId(), a.getId(), 1));
+                transferManager.transfer(new Transfer(b.getId(), a.getId(), 1));
             }
         });
 
