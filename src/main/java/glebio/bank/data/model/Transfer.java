@@ -24,11 +24,17 @@ public class Transfer {
     private final long cents;
 
     public Transfer(UUID fromAccountId, UUID toAccountId, long cents) {
-        Preconditions.checkArgument(cents >= 0, "negative sum %s", cents);
-        Preconditions.checkArgument(!fromAccountId.equals(toAccountId), "same from and to %s", fromAccountId);
+        check(fromAccountId, toAccountId, cents);
         this.fromAccountId = fromAccountId;
         this.toAccountId = toAccountId;
         this.cents = cents;
+    }
+
+    private void check(UUID fromAccountId, UUID toAccountId, long cents) {
+        Preconditions.checkArgument(cents >= 0, "negative sum %s", cents);
+        Preconditions.checkArgument(!fromAccountId.equals(toAccountId), "same from and to %s", fromAccountId);
+        Preconditions.checkNotNull(fromAccountId, "fromAccountId");
+        Preconditions.checkNotNull(toAccountId, "toA");
     }
 
     public UUID getUuid() {

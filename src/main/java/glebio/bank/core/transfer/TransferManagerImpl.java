@@ -25,7 +25,6 @@ public class TransferManagerImpl implements TransferManager {
     public void transfer(Transfer transfer) {
         Account from = db.getAccounts().get(transfer.getFromAccountId());
         Account to = db.getAccounts().get(transfer.getToAccountId());
-
         UUID[] ids = {from.getId(), to.getId()};
         Arrays.sort(ids);
 
