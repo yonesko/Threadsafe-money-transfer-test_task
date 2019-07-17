@@ -15,7 +15,7 @@ import glebio.bank.data.model.Transfer;
  */
 public final class Db {
 
-    private static Db ourInstance = new Db();
+    private final static Db ourInstance = new Db();
 
     private final Map<UUID, Account> accounts = new ConcurrentHashMap<>();
 
