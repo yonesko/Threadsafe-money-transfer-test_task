@@ -1,4 +1,4 @@
-####Bank Example
+##Bank Example
 You can create and replenish account and transfer money between them.
 
 Start server:
