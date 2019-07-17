@@ -13,7 +13,7 @@ import glebio.bank.data.model.Transfer;
 /**
  * @author Gleb Danichev
  */
-public class Db {
+public final class Db {
 
     private static Db ourInstance = new Db();
 
